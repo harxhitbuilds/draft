@@ -1,17 +1,22 @@
 interface ApiErrorInterface {
   statusCode: number;
   message: string;
-  error: any;
+  error?: any;
   stack?: string;
 }
 
 class ApiError extends Error implements ApiErrorInterface {
   statusCode: number;
   message: string;
-  error: any;
+  error?: any;
   stack?: string;
 
-  constructor(statusCode: number, message: string, error: any, stack?: string) {
+  constructor(
+    statusCode: number,
+    message: string,
+    error?: any,
+    stack?: string
+  ) {
     super(message);
     this.statusCode = statusCode;
     this.message = message;
