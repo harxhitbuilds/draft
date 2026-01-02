@@ -26,4 +26,9 @@ app.get("/api/health", (req, res) => {
   res.send("Server running perfectly.");
 });
 
+// routes
+import authRouter from "./routes/auth.route.js";
+
+app.use("/api/auth", authRouter);
+
 export default app;
