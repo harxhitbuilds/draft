@@ -22,4 +22,8 @@ app.use(
   })
 );
 
+app.get("/api/health", (req, res) => {
+  res.send("Server running perfectly.");
+});
+
 export default app;
