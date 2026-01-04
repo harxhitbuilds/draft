@@ -31,9 +31,9 @@ export default function ModeToggle() {
     }
   };
   return (
-    <Button onClick={switch_theme}>
-      <SunIcon className="hidden dark:flex h-4 w-4" />
-      <MoonIcon className="flex dark:hidden h-4 w-4 " />
+    <Button onClick={switch_theme} className="bg-transparent hover:bg-transparent border-none">
+      <SunIcon className="text-black dark:text-white hidden dark:flex h-4 w-4" />
+      <MoonIcon className="text-black dark:text-white flex dark:hidden h-4 w-4 " />
     </Button>
   );
 }
