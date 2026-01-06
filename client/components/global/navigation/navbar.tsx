@@ -15,10 +15,10 @@ import {
 
 export default function Navbar() {
   return (
-    <div className="bg-white dark:bg-black">
-      <nav className="max-w-[1600px] mx-auto h-18 flex items-center justify-between px-6 md:px-16    sticky top-0 z-20">
+    <div className="bg-white dark:bg-black sticky top-0 z-20">
+      <nav className=" max-w-[1600px] mx-auto h-18 flex items-center justify-between px-6 md:px-16 sticky top-0 ">
         <div className="flex items-center justify-center gap-16">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 cursor-pointer">
             <Image
               src={navConfig.logo.src}
               alt={navConfig.logo.src}
@@ -47,13 +47,12 @@ export default function Navbar() {
           <ModeToggle />
           {navConfig.buttons.map((item, index) => (
             <Link key={index} href={item.link}>
-              <Button className="rounded-sm shadow-inner hover:shadow-zinc-700 shadow-sm">
+              <Button className="rounded-sm shadow-inner hover:shadow-zinc-700 shadow-sm cursor-pointer">
                 {item.title}
               </Button>
             </Link>
           ))}
         </div>
-
         <MobileNav />
       </nav>
     </div>
@@ -66,9 +65,7 @@ const MobileNav = () => {
       <ModeToggle />
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button className="bg-transparent border-border hover:bg-transparent text-black dark:text-white">
-            <MenuIcon />
-          </Button>
+          <MenuIcon className="bg-transparent border-border hover:bg-transparent text-black dark:text-white" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64 mr-4">
           {navConfig.links.map((item, index) => (

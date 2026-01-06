@@ -1,5 +1,6 @@
 import Navbar from "@/components/global/navigation/navbar";
 import Background from "@/components/land/background";
+import Footer from "@/components/global/navigation/footer";
 
 export default function LandingPageLayout({
   children,
@@ -7,10 +8,10 @@ export default function LandingPageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen relative">
-      <Background />
+    <div className="min-h-screen">
       <Navbar />
       {children}
+      <Footer />
     </div>
   );
 }
