@@ -37,6 +37,10 @@ export const getSession = asyncHandler(async (req, res) => {
 });
 
 export const logout = asyncHandler(async (req, res) => {
-  res.clearCookie("--session");
+  res.clearCookie("__session", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
   return res.status(200).json(new ApiResponse(200, {}, "Logout Successfull !"));
 });
