@@ -7,15 +7,23 @@ import { Lock } from "lucide-react";
 import Image from "next/image";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function AuthPage() {
   const router = useRouter();
-  const { login } = useAuthStore();
+  const { continueWithGoogle, loading } = useAuthStore();
   const handleLogin = async () => {
-    await login();
+    await continueWithGoogle();
     router.refresh();
     router.push("/");
   };
+  if (loading) {
+    return (
+      <div className="h-screen bg-background flex items-center justify-center">
+        <Spinner className="text-foreground" />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex items-center justify-center relative bg-popover">
       <div className="flex items-center gap-2 absolute md:top-12 top-12 md:left-24">
@@ -42,13 +50,13 @@ export default function AuthPage() {
             onClick={handleLogin}
             className="rounded-xs py-6 border border-border cursor-pointer"
           >
-            <BsGoogle /> Sign In with Google
+            <BsGoogle /> Continue In with Google
           </Button>
           <Button
             disabled
             className="rounded-xs py-6 border border-border cursor-pointer"
           >
-            <BsGithub /> Sign In with Github
+            <BsGithub /> Continue In with Github
           </Button>
         </div>
       </div>

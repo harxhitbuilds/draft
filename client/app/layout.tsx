@@ -23,6 +23,9 @@ export const metadata: Metadata = {
 import ThemeProvider from "@/providers/theme-provider";
 import AuthProvider from "@/providers/auth-provider";
 
+// toaster
+import { Toaster } from "@/components/ui/sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,6 +42,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <main className="bg-background text-foreground">{children}</main>
+            <Toaster />
           </ThemeProvider>
         </AuthProvider>
       </body>
