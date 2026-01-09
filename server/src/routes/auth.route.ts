@@ -16,6 +16,6 @@ router.post("/google", continueWithGoogle);
 router.post("/on-board", authMiddleware, onBoard);
 // protected routes
 router.get("/getMe", authMiddleware, requireOnBoard, getMe);
-router.get("/logout", authMiddleware, logout);
+router.get("/logout", logout);
 
 export default router;
