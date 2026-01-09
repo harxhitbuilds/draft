@@ -1,5 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+interface ISkill {
+  name: string;
+}
+
 interface IUser {
   firebaseId: string;
   name: string;
@@ -7,7 +11,7 @@ interface IUser {
   email: string;
   provider: string;
   profile?: string;
-  skills: [];
+  skills: ISkill[];
   banner: string;
   onboard: boolean;
 }
@@ -42,7 +46,7 @@ const userSchema = new mongoose.Schema<IUserDocument>(
     },
     provider: {
       type: String,
-      enum: ["goggle", "github"],
+      enum: ["google", "github"],
     },
     profile: {
       type: String,
@@ -50,7 +54,10 @@ const userSchema = new mongoose.Schema<IUserDocument>(
     },
     skills: [
       {
-        name: String,
+        name: {
+          type: String,
+          required: true,
+        },
       },
     ],
     banner: {
