@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 // providers
 import ThemeProvider from "@/providers/theme-provider";
-import AuthProvider from "@/providers/auth-provider";
+import SessionProvider from "@/providers/session.proivder";
 
 // toaster
 import { Toaster } from "@/components/ui/sonner";
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fugaz.variable} ${inter.variable}`}>
       <body className="antialiased">
-        <AuthProvider>
+        <SessionProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -44,7 +44,7 @@ export default function RootLayout({
             <main className="bg-background text-foreground">{children}</main>
             <Toaster />
           </ThemeProvider>
-        </AuthProvider>
+        </SessionProvider>
       </body>
     </html>
   );
