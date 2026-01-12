@@ -6,91 +6,54 @@ import Idea from "../models/idea.model.js";
 
 import type { IAuthenticatedRequest } from "../types/request.js";
 
-import mongoose from "mongoose";
+import User from "../models/user.model.js";
 
-export const getMyIdeas = asyncHandler(
+export const updateProfile = asyncHandler(
   async (req: IAuthenticatedRequest, res) => {
-    const userId = req.user?.userId;
-    if (!userId) {
-      throw new ApiError(400, "User not authenticated");
+    const { github, x, linkedIn } = req.body;
+    if (!github && !x && !linkedIn) {
+      throw new ApiError(400, "Not provided any information");
     }
 
-    const ideas = await Idea.find({ owner: userId })
-      .populate("owner", "name username profile")
-      .populate({
-        path: "teamMembers.userId",
-        select: "name username profile",
-      });
+    const userId = req.user?.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new ApiError(400, "User not found");
+    }
+
+    if (github) {
+      user.socialLinks.github = github;
+    }
+    if (linkedIn) {
+      user.socialLinks.linkedIn = linkedIn;
+    }
+    if (x) {
+      user.socialLinks.x = x;
+    }
+
+    await user.save({ validateBeforeSave: false });
 
     return res
       .status(200)
-      .json(new ApiResponse(200, { ideas }, "Ideas fetched ! "));
+      .json(new ApiResponse(200, { user }, "User updated successfully"));
   }
 );
 
-export const getMyTeams = asyncHandler(
-  async (req: IAuthenticatedRequest, res) => {
-    const userId = req.user?.userId;
-    if (!userId) {
-      throw new ApiError(400, "User not authenticated");
-    }
-
-    const teams = await Idea.find({
-      $or: [{ owner: userId }, { "teamMembers.userId": userId }],
-    })
-      .populate("owner", "name username profile")
-      .populate("teamMembers.userId", "name username profile");
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, { teams }, "Teams fetched successfully!"));
+export const getUserProfile = asyncHandler(async (req, res) => {
+  const { username } = req.params;
+  if (!username) {
+    throw new ApiError(400, "Username not found");
   }
-);
 
-export const getMyStats = asyncHandler(
-  async (req: IAuthenticatedRequest, res) => {
-    const userId = req.user?.userId;
-    if (!userId) {
-      throw new ApiError(401, "User not authenticated");
-    }
-
-    const [
-      totalIdeas,
-      totalTeamsJoined,
-      totalRequestsSent,
-      requestsReceivedResult,
-    ] = await Promise.all([
-      Idea.countDocuments({ owner: userId }),
-
-      Idea.countDocuments({ "teamMembers.userId": userId }),
-
-      Idea.countDocuments({ "requests.userId": userId }),
-
-      Idea.aggregate([
-        { $match: { owner: new mongoose.Types.ObjectId(userId) } },
-        {
-          $group: {
-            _id: null,
-            totalRequests: { $sum: { $size: "$requests" } },
-          },
-        },
-      ]),
-    ]);
-
-    const totalRequestsReceived =
-      requestsReceivedResult.length > 0
-        ? requestsReceivedResult[0].totalRequests
-        : 0;
-
-    const stats = {
-      totalIdeas,
-      totalTeamsJoined,
-      totalRequestsSent,
-      totalRequestsReceived,
-    };
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, { stats }, "User stats fetched successfully"));
+  const user = await User.findOne({ username });
+  if (!user) {
+    throw new ApiError(400, "User not found");
   }
-);
+
+  const userIdeas = await Idea.find({ owner: user._id });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { user, userIdeas }, "Fetched !"));
+});

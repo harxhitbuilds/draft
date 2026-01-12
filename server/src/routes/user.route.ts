@@ -1,15 +1,18 @@
 import express from "express";
 import {
-  getMyIdeas,
-  getMyStats,
-  getMyTeams,
+  updateProfile,
+  getUserProfile,
 } from "../controllers/user.controller.js";
 import { verifyAccessToken } from "../middlewares/accessToken.middleware.js";
 import { requireOnboarding } from "../middlewares/onboard.middleware.js";
 const userRouter = express.Router();
 
-userRouter.get("/my-ideas", verifyAccessToken, requireOnboarding, getMyIdeas);
-userRouter.get("/my-teams", verifyAccessToken, requireOnboarding, getMyTeams);
-userRouter.get("/my-stats", verifyAccessToken, requireOnboarding, getMyStats);
+userRouter.post("/update", verifyAccessToken, requireOnboarding, updateProfile);
+userRouter.get(
+  "/get-profile/:username",
+  verifyAccessToken,
+  requireOnboarding,
+  getUserProfile
+);
 
 export default userRouter;

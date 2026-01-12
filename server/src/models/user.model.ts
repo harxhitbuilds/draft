@@ -46,6 +46,11 @@ const userSchema = new mongoose.Schema<IUser>(
     refreshToken: {
       type: String,
     },
+    socialLinks: {
+      github: { type: String, trim: true },
+      linkedIn: { type: String, trim: true },
+      x: { type: String, trim: true },
+    },
   },
   {
     timestamps: true,

@@ -9,6 +9,11 @@ interface IUser extends Document {
   skills: string[];
   onBoarded: boolean;
   refreshToken: string;
+  socialLinks: {
+    github: string;
+    linkedIn: string;
+    x: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
