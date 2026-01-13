@@ -4,7 +4,6 @@ export const footerLinks = [
     links: [
       { label: "Explore Ideas", href: "#" },
       { label: "Post an Idea", href: "#" },
-      { label: "Teams", href: "#" },
       { label: "Profiles", href: "#" },
     ],
   },

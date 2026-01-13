@@ -44,10 +44,9 @@ export default function Navbar() {
         </div>
 
         <div className=" items-center gap-4 hidden md:flex">
-          <ModeToggle />
           {navConfig.buttons.map((item, index) => (
             <Link key={index} href={item.link}>
-              <Button className="rounded-sm shadow-inner hover:shadow-zinc-700 shadow-sm cursor-pointer">
+              <Button className="rounded-xs shadow-inner hover:shadow-zinc-700 cursor-pointer">
                 {item.title}
               </Button>
             </Link>
@@ -62,7 +61,6 @@ export default function Navbar() {
 const MobileNav = () => {
   return (
     <div className="flex items-center gap-4 md:hidden">
-      <ModeToggle />
       <DropdownMenu>
         <DropdownMenuTrigger>
           <MenuIcon className="bg-transparent border-border hover:bg-transparent text-black dark:text-white" />

@@ -1,11 +1,11 @@
-import { ArrowRight, Lightbulb, Package, Users, Zap } from "lucide-react";
+import { ArrowRight, Lightbulb, Users, UserCircle } from "lucide-react";
+
 export const heroConfig = {
   line1: "Enter with an Idea.",
   line2: "Leave with a Team That ",
   words: ["Build!", "Ship!", "Design!", "Develop!"],
   para: `Turn raw ideas into real products. Share your vision, find skilled collaborators,
 and execute faster with a focused, builder-first platform.`,
-  badge: "From idea to execution all in one place",
   ctabtns: [
     {
       title: "Start Building",
@@ -20,41 +20,41 @@ and execute faster with a focused, builder-first platform.`,
     },
   ],
   heroImage: {
-    src: "/assets/hero-img.webp",
+    src: "/assets/hero-section-img.png",
     alt: "Collaborative team building ideas together",
   },
 };
 
 export const features = [
   {
-    title: "Share Project Ideas",
+    title: "Post Project Ideas",
     description:
-      "Post ideas with a clear description, tech stack, and requirements so others can quickly understand and join.",
+      "Share your ideas with a clear description, tech stack, and vision so others can quickly understand what you're building.",
   },
   {
-    title: "Build Teams Publicly",
+    title: "Explore Ideas Publicly",
     description:
-      "Show current team members, open roles, and project status in one place.",
+      "Browse ideas posted by other developers and discover projects that match your interests.",
   },
   {
-    title: "Structured Join Requests",
+    title: "Creator Profiles",
     description:
-      "Request to join a project with intent. No random DMs or spam.",
+      "View developer profiles with their skills, posted ideas, and social media links.",
   },
   {
-    title: "Developer Profiles",
+    title: "Team Visibility",
     description:
-      "Profiles focus on skills, ideas posted, and collaborations — nothing unnecessary.",
+      "See who is already working on an idea and what roles they are handling.",
   },
   {
-    title: "Markdown Support",
+    title: "Markdown-Powered Writing",
     description:
-      "Write detailed ideas using Markdown with support for code blocks and formatting.",
+      "Write rich, structured ideas using Markdown with support for code blocks and formatting.",
   },
   {
-    title: "Easy Sharing",
+    title: "Share Anywhere",
     description:
-      "Every idea has a public link optimized for sharing on X and other platforms.",
+      "Every idea has a public link optimized for sharing on social platforms.",
   },
 ];
 
@@ -62,26 +62,22 @@ export const steps = [
   {
     number: 1,
     title: "Post your idea",
-    description: "Share your project concept and what you want to build",
+    description: "Share your project idea, vision, and what you want to build",
     icon: Lightbulb,
   },
   {
     number: 2,
-    title: "Add tech stack and roles",
-    description: "Define the technologies and positions you need filled",
-    icon: Package,
-  },
-  {
-    number: 3,
-    title: "Developers send join requests",
-    description: "Interested developers apply to join your project team",
+    title: "Explore ideas",
+    description:
+      "Browse ideas posted by other creators and discover interesting projects",
     icon: Users,
   },
   {
-    number: 4,
-    title: "Build together",
-    description: "Collaborate with your team to bring your idea to life",
-    icon: Zap,
+    number: 3,
+    title: "Connect with creators",
+    description:
+      "View profiles, check social media links, and connect outside the platform",
+    icon: UserCircle,
   },
 ];
 
@@ -92,3 +88,22 @@ export const teamMembers = [
 ];
 
 export const techStack = ["React", "Node.js", "PostgreSQL", "Tailwind"];
+
+export const idea = {
+  title: "AI-Powered Recipe Generator",
+  owner: {
+    name: "Harshit Parmar",
+    username : "harxhitbuilds"
+  },
+  description:
+    "A mobile app that generates unique recipes based on ingredients you have at home, reducing food waste.",
+  technologies: [
+    { name: "React Native" },
+    { name: "Python" },
+    { name: "TensorFlow" },
+  ],
+  status: "open",
+  slug: "ai-recipe-generator",
+  lookingForCollaboratos: true,
+  requirements: ["Frontend Developer", "Backend Developer", "UI/UX Designer"],
+};
