@@ -40,3 +40,4 @@ Thumbs.db
 # --- Monorepo (if using Turbo/Nx) ---
 .turbo/
 .next/
+src/seed
