@@ -38,9 +38,6 @@ interface SocialLinks {
 type UserStore = {
   user: IUser | null;
   userIdeas: IIdea[];
-  myStats: {
-    totalIdeas: number;
-  } | null;
   fetching: boolean;
   fetchProfile: (username: string) => Promise<void>;
   updateProfile: (data: SocialLinks) => Promise<any>;
