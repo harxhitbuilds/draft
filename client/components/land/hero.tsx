@@ -54,7 +54,15 @@ export default function Hero() {
         {heroConfig.ctabtns.map((item, index) => (
           <Link href={item.link} key={index}>
             <Button
-              variant={item.type}
+              variant={
+                item.type as
+                  | "default"
+                  | "outline"
+                  | "secondary"
+                  | "ghost"
+                  | "link"
+                  | "destructive"
+              }
               className="cursor-pointer rounded-xs px-6 py-2 text-sm"
             >
               {item.title}
