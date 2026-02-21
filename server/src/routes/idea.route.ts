@@ -1,7 +1,7 @@
 import express from 'express';
 
 import {
-  deleteIdea,
+  
   fetchIdea,
   fetchIdeas,
   searchIdeas,
@@ -20,7 +20,6 @@ router
   .route('/:slug')
   .get(fetchIdea)
   .patch(verifyAccessToken, updateIdea)
-  .delete(verifyAccessToken, deleteIdea);
 
 router.post('/upload', verifyAccessToken, upload.single("coverImage"),uploadIdea);
 
