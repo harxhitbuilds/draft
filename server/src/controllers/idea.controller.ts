@@ -9,7 +9,7 @@ import ApiResponse from '../utils/apiResponse.js';
 import type { IAuthenticatedRequest,IFetchIdeaRequest } from '../types/request.js';
 
 import { generateUniqueSlug } from '../utils/slug.js';
-import { deleteFromFirebase, uploadToFirebase } from '../utils/firebase.js';
+import {  uploadToFirebase } from '../utils/firebase.js';
 
 
 
@@ -222,35 +222,35 @@ export const updateIdea = asyncHandler(
   },
 );
 
-export const deleteIdea = asyncHandler(
-  async (req: IAuthenticatedRequest, res) => {
-    const { slug } = req.params;
-    if (!slug) {
-      throw new ApiError(400, 'Slug not found');
-    }
+// export const deleteIdea = asyncHandler(
+//   async (req: IAuthenticatedRequest, res) => {
+//     const { slug } = req.params;
+//     if (!slug) {
+//       throw new ApiError(400, 'Slug not found');
+//     }
 
-    const idea = await Idea.findOne({ slug });
-    if (!idea) {
-      throw new ApiError(404, 'Idea not found');
-    }
+//     const idea = await Idea.findOne({ slug });
+//     if (!idea) {
+//       throw new ApiError(404, 'Idea not found');
+//     }
 
-    if (idea.owner.toString() !== req.user?.userId.toString()) {
-      throw new ApiError(403, 'Forbidden: You are not the owner of this idea.');
-    }
+//     if (idea.owner.toString() !== req.user?.userId.toString()) {
+//       throw new ApiError(403, 'Forbidden: You are not the owner of this idea.');
+//     }
 
-    const coverImage = idea.coverImage as string | undefined;
-    if(coverImage){
-      try {
-        await deleteFromFirebase(coverImage);
-      } catch (error) {
-        console.log("Failed to delete cover image from firebase",error);
-      }
-    }
+//     const coverImage = idea.coverImage as string | undefined;
+//     if(coverImage){
+//       try {
+//         await deleteFromFirebase(coverImage);
+//       } catch (error) {
+//         console.log("Failed to delete cover image from firebase",error);
+//       }
+//     }
 
-    await Idea.findByIdAndDelete(idea._id);
+//     await Idea.findByIdAndDelete(idea._id);
 
-    return res
-      .status(200)
-      .json(new ApiResponse(200, 'Idea removed successfully'));
-  },
-);
+//     return res
+//       .status(200)
+//       .json(new ApiResponse(200, 'Idea removed successfully'));
+//   },
+// );
