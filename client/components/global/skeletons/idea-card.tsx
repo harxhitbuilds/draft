@@ -9,7 +9,7 @@ import {
 
 export default function IdeaCardSkeleton() {
   return (
-    <Card className="bg-background border-border w-full max-w-md animate-pulse gap-1 overflow-hidden rounded-sm p-0 px-4 py-6">
+    <Card className="bg-background border-border w-full animate-pulse gap-1 overflow-hidden rounded-sm p-0 px-4 py-6">
       <CardHeader className="gap-2 p-0 py-2">
         <div className="flex items-center justify-between">
           <div className="bg-muted-foreground/10 h-4 w-36 rounded-lg" />

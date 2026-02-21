@@ -29,7 +29,7 @@ export default function IdeaCard({ idea }: { idea: IIdea }) {
     BADGE_COLORS[Math.floor(Math.random() * BADGE_COLORS.length)];
 
   return (
-    <Card className="group w-full max-w-md gap-1 overflow-hidden rounded-md border-white/10 bg-[#0f0f0f] p-0 px-5 py-4 transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5">
+    <Card className="group w-full gap-1 overflow-hidden rounded-md border-white/10 bg-[#0f0f0f] p-0 px-5 py-4 transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5">
       <CardHeader className="gap-3 p-0 pb-4">
         <div className="flex items-center justify-between">
           {idea?.lookingForCollaboratos ? (
@@ -57,7 +57,7 @@ export default function IdeaCard({ idea }: { idea: IIdea }) {
           <CardDescription className="text-xs text-zinc-500">
             Posted by{" "}
             <span className="cursor-pointer font-medium text-zinc-300 transition-colors hover:text-white">
-              {idea?.owner?.name}
+              {idea?.owner?.username}
             </span>
           </CardDescription>
         </div>
