@@ -9,9 +9,9 @@ const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 const storageBucket = process.env.FIREBASE_STORAGE_BUCKET;
 
-if (!projectId || !privateKey || !clientEmail) {
+if (!projectId || !privateKey || !clientEmail || !storageBucket) {
   throw new Error(
-    'Missing required Firebase environment variables: FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, or FIREBASE_CLIENT_EMAIL',
+    'Missing required Firebase environment variables: FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, or FIREBASE_CLIENT_EMAIL, or FIREBASE_STORAGE_BUCKET',
   );
 }
 
@@ -24,7 +24,7 @@ const serviceAccount: ServiceAccount = {
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET as string,
+    storageBucket: storageBucket,
   });
 }
 
