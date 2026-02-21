@@ -1,18 +1,19 @@
-import express from "express";
+import express from 'express';
+
 import {
-  updateProfile,
+  getMe,
   getUserProfile,
-} from "../controllers/user.controller.js";
-import { verifyAccessToken } from "../middlewares/accessToken.middleware.js";
-import { requireOnboarding } from "../middlewares/onboard.middleware.js";
+  updateProfile,
+} from '../controllers/user.controller.js';
+import { verifyAccessToken } from '../middlewares/accessToken.middleware.js';
+
 const userRouter = express.Router();
 
-userRouter.post("/update", verifyAccessToken, requireOnboarding, updateProfile);
+userRouter.post('/update', verifyAccessToken, updateProfile);
 userRouter.get(
-  "/get-profile/:username",
-  verifyAccessToken,
-  requireOnboarding,
-  getUserProfile
+  '/get-profile/:username',
+  getUserProfile,
 );
+userRouter.get("/getMe",verifyAccessToken,getMe)
 
 export default userRouter;

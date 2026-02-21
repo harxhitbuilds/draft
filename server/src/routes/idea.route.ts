@@ -1,26 +1,27 @@
-import express from "express";
+import express from 'express';
+
 import {
-  fetchIdeas,
-  fetchIdea,
-  uploadIdea,
   deleteIdea,
-  updateIdea,
+  fetchIdea,
+  fetchIdeas,
   searchIdeas,
-} from "../controllers/idea.controller.js";
-import { verifyAccessToken } from "../middlewares/accessToken.middleware.js";
-import { requireOnboarding } from "../middlewares/onboard.middleware.js";
+  updateIdea,
+  uploadIdea,
+} from '../controllers/idea.controller.js';
+import { verifyAccessToken } from '../middlewares/accessToken.middleware.js';
+import upload from '../middlewares/multer.middleware.js';
 
 const router = express.Router();
 
-router.get("/", verifyAccessToken, requireOnboarding, fetchIdeas);
-router.get("/search", verifyAccessToken, requireOnboarding, searchIdeas);
+router.get('/', fetchIdeas);
+router.get('/search', searchIdeas);
 
 router
-  .route("/:slug")
-  .get(verifyAccessToken, requireOnboarding, fetchIdea)
-  .patch(verifyAccessToken, requireOnboarding, updateIdea)
-  .delete(verifyAccessToken, requireOnboarding, deleteIdea);
+  .route('/:slug')
+  .get(fetchIdea)
+  .patch(verifyAccessToken, updateIdea)
+  .delete(verifyAccessToken, deleteIdea);
 
-router.post("/upload", verifyAccessToken, requireOnboarding, uploadIdea);
+router.post('/upload', verifyAccessToken, upload.single("coverImage"),uploadIdea);
 
 export default router;

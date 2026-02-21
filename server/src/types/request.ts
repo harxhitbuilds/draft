@@ -1,8 +1,16 @@
-import type { Request } from "express";
-import type { IAuthenticatedUser } from "./user.js";
+import type { Request } from 'express';
+
+import type { IAuthenticatedUser } from './user.js';
 
 interface IAuthenticatedRequest extends Request {
   user?: IAuthenticatedUser;
 }
 
-export type { IAuthenticatedRequest };
+interface IFetchIdeaRequest extends Request {
+  query: {
+    limit?: string;
+    cursor?: string;
+  };
+}
+
+export type { IAuthenticatedRequest , IFetchIdeaRequest  };

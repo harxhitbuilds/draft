@@ -1,9 +1,12 @@
-// dotenv config
-import dotenv, { config } from "dotenv";
-dotenv.config();
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import connectDB from "./config/database.js";
-import app from "./app.js";
+import dotenv from 'dotenv';
+
+import app from './app.js';
+import connectDB from './config/database.js';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
@@ -14,5 +17,5 @@ connectDB()
     });
   })
   .catch((error) => {
-    console.log("MongoDB connection error : ", error);
+    console.log('MongoDB connection error : ', error);
   });

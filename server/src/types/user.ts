@@ -1,4 +1,4 @@
-import { Document, Model } from "mongoose";
+import { Document, Model } from 'mongoose';
 
 interface IUser extends Document {
   name: string;
@@ -7,7 +7,6 @@ interface IUser extends Document {
   provider: string;
   profile?: string;
   skills: string[];
-  onBoarded: boolean;
   refreshToken: string;
   socialLinks: {
     github: string;
@@ -27,7 +26,6 @@ export interface IUserModel extends Model<IUser, {}, IUserMethods> {}
 
 interface IAuthenticatedUser {
   userId: string;
-  onBoarded: boolean;
 }
 
 export type { IUser, IAuthenticatedUser };

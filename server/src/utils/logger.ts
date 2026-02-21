@@ -1,38 +1,38 @@
-import winston from "winston";
-import type { StreamOptions } from "morgan";
+import type { StreamOptions } from 'morgan';
+import winston from 'winston';
 
 const logFormat = winston.format.combine(
-  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
   winston.format.errors({ stack: true }),
   winston.format.splat(),
-  winston.format.json()
+  winston.format.json(),
 );
 
 const consoleFormat = winston.format.combine(
   winston.format.colorize(),
-  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
   winston.format.printf(({ timestamp, level, message, ...meta }) => {
     return `${timestamp} [${level}]: ${message} ${
-      Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""
+      Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ''
     }`;
-  })
+  }),
 );
 
 const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || "info",
+  level: process.env.LOG_LEVEL || 'info',
   format: logFormat,
-  defaultMeta: { service: "server" },
+  defaultMeta: { service: 'server' },
   transports: [
     new winston.transports.Console({
       format: consoleFormat,
     }),
     new winston.transports.File({
-      filename: "logs/error.log",
-      level: "error",
+      filename: 'logs/error.log',
+      level: 'error',
       format: logFormat,
     }),
     new winston.transports.File({
-      filename: "logs/combined.log",
+      filename: 'logs/combined.log',
       format: logFormat,
     }),
   ],

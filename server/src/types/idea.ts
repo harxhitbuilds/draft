@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 interface ITechnology {
   name: string;
@@ -7,9 +7,10 @@ interface ITechnology {
 interface IIdea {
   title: string;
   description: string;
+  coverImage : string;
   owner: mongoose.Types.ObjectId;
   technologies: ITechnology[];
-  status: "draft" | "open" | "in-progress" | "completed" | "archived";
+  status: 'draft' | 'open' | 'in-progress' | 'completed' | 'archived';
   slug?: string;
   lookingForCollaboratos: boolean;
   requirements: string[];

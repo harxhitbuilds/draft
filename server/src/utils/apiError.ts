@@ -15,7 +15,7 @@ class ApiError extends Error implements ApiErrorInterface {
     statusCode: number,
     message: string,
     error?: any,
-    stack?: string
+    stack?: string,
   ) {
     super(message);
     this.statusCode = statusCode;

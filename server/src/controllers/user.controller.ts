@@ -1,25 +1,25 @@
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiResponse from "../utils/apiResponse.js";
-import ApiError from "../utils/apiError.js";
+import User from '../models/user.model.js';
+import Idea from '../models/idea.model.js';
 
-import Idea from "../models/idea.model.js";
+import asyncHandler from '../utils/asyncHandler.js';
+import ApiError from '../utils/apiError.js';
+import ApiResponse from '../utils/apiResponse.js';
 
-import type { IAuthenticatedRequest } from "../types/request.js";
+import type { IAuthenticatedRequest } from '../types/request.js';
 
-import User from "../models/user.model.js";
 
 export const updateProfile = asyncHandler(
   async (req: IAuthenticatedRequest, res) => {
     const { github, x, linkedIn } = req.body;
     if (!github && !x && !linkedIn) {
-      throw new ApiError(400, "Not provided any information");
+      throw new ApiError(400, 'Not provided any information');
     }
 
     const userId = req.user?.userId;
     const user = await User.findById(userId);
 
     if (!user) {
-      throw new ApiError(400, "User not found");
+      throw new ApiError(400, 'User not found');
     }
 
     if (github) {
@@ -36,24 +36,41 @@ export const updateProfile = asyncHandler(
 
     return res
       .status(200)
-      .json(new ApiResponse(200, { user }, "User updated successfully"));
-  }
+      .json(new ApiResponse(200, { user }, 'User updated successfully'));
+  },
 );
 
 export const getUserProfile = asyncHandler(async (req, res) => {
   const { username } = req.params;
   if (!username) {
-    throw new ApiError(400, "Username not found");
+    throw new ApiError(400, 'Username not found');
   }
 
   const user = await User.findOne({ username });
   if (!user) {
-    throw new ApiError(400, "User not found");
+    throw new ApiError(400, 'User not found');
   }
 
   const userIdeas = await Idea.find({ owner: user._id });
 
   return res
     .status(200)
-    .json(new ApiResponse(200, { user, userIdeas }, "Fetched !"));
+    .json(new ApiResponse(200, { user, userIdeas }, 'Fetched !'));
 });
+
+export const getMe = asyncHandler(async(req:IAuthenticatedRequest,res)=>{
+  const userId = req.user?.userId;
+  if(!userId){
+    throw new ApiError(400,"UnAuthenticated Request");
+  }
+
+  const user = await User.findById(userId);
+
+  if(!user){
+    throw new ApiError(404,"User not found");
+  }
+
+  const userIdeas = await Idea.find({owner : user._id});
+
+  return res.status(200).json(new ApiResponse(200,{user,userIdeas}));
+})
