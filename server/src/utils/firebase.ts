@@ -28,24 +28,24 @@ const uploadToFirebase = async (file: Express.Multer.File): Promise<string> => {
   }
 };
 
-const deleteFromFirebase = async (imageURL: string): Promise<boolean> => {
-  try {
-    if (!imageURL) throw new Error("No image URL provided");
+// const deleteFromFirebase = async (imageURL: string): Promise<boolean> => {
+//   try {
+//     if (!imageURL) throw new Error("No image URL provided");
 
-    const parts = imageURL.split("/");
-    const last = parts.pop();
-    if (!last) throw new Error("Invalid image URL");
+//     const parts = imageURL.split("/");
+//     const last = parts.pop();
+//     if (!last) throw new Error("Invalid image URL");
 
-    const fileName = decodeURIComponent(last.split("?")[0]);
+//     const fileName = decodeURIComponent(last.split("?")[0]);
 
-    const file = bucket.file(fileName);
-    await file.delete();
+//     const file = bucket.file(fileName);
+//     await file.delete();
 
-    return true;
-  } catch (error: any) {
-    console.error("Error deleting image from Firebase:", error?.message ?? error);
-    return false;
-  }
-};
+//     return true;
+//   } catch (error: any) {
+//     console.error("Error deleting image from Firebase:", error?.message ?? error);
+//     return false;
+//   }
+// };
 
-export { uploadToFirebase,deleteFromFirebase };
+export { uploadToFirebase };
