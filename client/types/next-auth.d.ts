@@ -2,14 +2,12 @@ import "next-auth";
 import "next-auth/jwt";
 
 interface IUser extends Document {
-  _id: string;
   name: string;
   username: string;
   email: string;
   provider: string;
   profile?: string;
   skills: string[];
-  onBoarded: boolean;
   refreshToken: string;
   socialLinks: {
     github: string;

@@ -1,23 +1,21 @@
-import { BsMailbox, BsTwitterX, BsGithub } from "react-icons/bs";
+import { FaEnvelope, FaGithub, FaTwitter } from "react-icons/fa";
 
 export const topbarConfig = {
-  product: "Alloy",
-  logo: {
-    src: "/assets/logo.svg",
-    alt: "Product Name",
-  },
-  link: [
+  socialLinks: [
     {
-      icon: <BsTwitterX />,
-      href: "#",
+      icon: FaTwitter,
+      href: "http://x.com/harxhitbuilds",
+      label: "Twitter",
     },
     {
-      icon: <BsMailbox />,
-      href: "#",
+      icon: FaGithub,
+      href: "https://github.com/harxhitbuilds",
+      label: "Github",
     },
     {
-      icon: <BsGithub />,
-      href: "#",
+      icon: FaEnvelope,
+      href: "mailto:harshitxworks@gmail.com",
+      label: "Email",
     },
   ],
 };

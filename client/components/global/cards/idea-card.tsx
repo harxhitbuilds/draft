@@ -1,66 +1,78 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { BsPeople, BsEnvelope } from "react-icons/bs";
-import { User2, Eye } from "lucide-react";
+import { Eye, Verified } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import type { IIdea, ITechnology } from "@/types/index";
 
 const BADGE_COLORS = [
-  "bg-blue-500/10 text-blue-400 border border-blue-500/20",
-  "bg-purple-500/10 text-purple-400 border border-purple-500/20",
-  "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
-  "bg-orange-500/10 text-orange-400 border border-orange-500/20",
-  "bg-pink-500/10 text-pink-400 border border-pink-500/20",
+  "bg-zinc-800 text-zinc-300 border-zinc-700",
+  "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  "bg-purple-500/10 text-purple-400 border-purple-500/20",
 ];
 
 export default function IdeaCard({ idea }: { idea: IIdea }) {
   const router = useRouter();
+
   const getRandomBadgeStyle = () =>
     BADGE_COLORS[Math.floor(Math.random() * BADGE_COLORS.length)];
 
   return (
-    <Card className="w-full max-w-md overflow-hidden gap-1 p-0 px-4 py-6 rounded-sm bg-background border-border">
-      <CardHeader className="gap-2 p-0 py-2 ">
+    <Card className="group w-full max-w-md gap-1 overflow-hidden rounded-md border-white/10 bg-[#0f0f0f] p-0 px-5 py-4 transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5">
+      <CardHeader className="gap-3 p-0 pb-4">
         <div className="flex items-center justify-between">
           {idea?.lookingForCollaboratos ? (
-            <Badge className="bg-muted-foreground/10 text-foreground border border-foreground/20 text-[10px]">
-              <div className="h-1 w-1 rounded-full animate-pulse bg-green-500" />
+            <Badge
+              variant="outline"
+              className="border-green-500/30 bg-green-500/5 px-2 py-0 text-[10px] font-normal text-green-500"
+            >
+              <span className="mr-1.5 flex h-1.5 w-1.5 items-center">
+                <span className="absolute inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-green-500 opacity-75"></span>
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-500"></span>
+              </span>
               Looking for collaborators
             </Badge>
           ) : (
-            ""
+            <div />
           )}
-          <Badge className="bg-muted-foreground/10 text-foreground border border-foreground/20 text-[10px]">
+          <Badge className="rounded-none border-none bg-white/5 font-mono text-[10px] tracking-wider text-zinc-400 uppercase">
             {idea?.status}
           </Badge>
         </div>
-        <div className="flex flex-col gap-1">
-          <CardTitle className="text-lg">{idea?.title}</CardTitle>
-          <CardDescription className="text-xs">
-            Posted by <span className="font-medium">{idea?.owner?.name}</span>
+        <div className="flex flex-col gap-1.5">
+          <CardTitle className="text-xl font-semibold tracking-tight text-white">
+            {idea?.title}
+          </CardTitle>
+          <CardDescription className="text-xs text-zinc-500">
+            Posted by{" "}
+            <span className="cursor-pointer font-medium text-zinc-300 transition-colors hover:text-white">
+              {idea?.owner?.name}
+            </span>
           </CardDescription>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-2  p-0 py-2">
+      <CardContent className="space-y-5 p-0 pb-4">
         <div>
+          <p className="mb-2 text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
+            Requirements
+          </p>
           <div className="flex flex-wrap gap-2">
             {idea?.requirements.map((req, index: number) => (
               <Badge
                 key={index}
-                className={`rounded-sm ${getRandomBadgeStyle()}`}
+                className={`rounded-sm border px-2 py-0 text-[11px] font-normal ${getRandomBadgeStyle()}`}
               >
                 {req}
               </Badge>
@@ -68,41 +80,46 @@ export default function IdeaCard({ idea }: { idea: IIdea }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {idea?.technologies.map((tech: ITechnology, index: number) => (
-            <Badge
-              key={index}
-              className="rounded-xs bg-muted-foreground/20 text-foreground text-xs"
-            >
-              {tech.name}
-            </Badge>
-          ))}
+        <div>
+          <p className="mb-2 text-[10px] font-bold tracking-widest text-zinc-600 uppercase">
+            Stack
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {idea?.technologies.map((tech: ITechnology, index: number) => (
+              <Badge
+                key={index}
+                className="rounded-sm border border-white/5 bg-white/5 text-[11px] font-normal text-zinc-400"
+              >
+                {tech.name}
+              </Badge>
+            ))}
+          </div>
         </div>
       </CardContent>
 
-      <Separator className="" />
+      <Separator className="bg-white/5" />
 
-      <CardFooter className="flex flex-col p-0  py-2 space-y-4">
-        <div className="w-full flex items-center justify-between gap-2">
+      <CardFooter className="flex flex-col space-y-4 p-0 pt-4">
+        <div className="flex w-full items-center justify-between gap-3">
           <Button
             variant="outline"
             size="sm"
-            className="rounded-sm cursor-pointer"
+            className="h-9 flex-1 cursor-pointer rounded-md border-white/10 text-xs font-medium text-zinc-300 transition-all hover:bg-white"
             onClick={() => router.push(`/home/idea/${idea?.slug}`)}
           >
-            <Eye />
-            View
+            <Eye className="mr-2 h-4 w-4" />
+            View Project
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="rounded-sm cursor-pointer"
+            className="h-9 flex-1 cursor-pointer rounded-md border-white/10 bg-transparent text-xs font-medium text-zinc-300 hover:border-white/30"
             onClick={() =>
               router.push(`/home/profile/${idea?.owner?.username}`)
             }
           >
-            <User2 />
-            Owner's Profile
+            <Verified className="mr-2 h-4 w-4 text-blue-500" />
+            Owner
           </Button>
         </div>
       </CardFooter>

@@ -26,10 +26,4 @@ export const navConfig = {
       link: "#",
     },
   ],
-  buttons: [
-    {
-      title: "Get Started",
-      link: "/auth",
-    },
-  ],
 };

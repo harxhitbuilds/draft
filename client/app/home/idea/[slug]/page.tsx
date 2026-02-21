@@ -1,89 +1,53 @@
 "use client";
+import { ArrowLeft } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+
 import { useEffect } from "react";
 
-import Markdown from "@/components/global/components/markdown";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
+// For the back button
+import IdeaViewSkeleton from "@/components/global/skeletons/idea-view";
+import IdeaContent from "@/components/home/view-idea/idea-content";
+import IdeaHeader from "@/components/home/view-idea/idea-header";
+import IdeaMeta from "@/components/home/view-idea/idea-meta";
 import { useIdeaStore } from "@/store/idea.store";
 
-import { useParams } from "next/navigation";
-import Link from "next/link";
-
 export default function Idea() {
-  const { fetchIdeaBySlug, currentIdea } = useIdeaStore();
+  const { fetchIdeaBySlug, currentIdea, fetching } = useIdeaStore();
   const { slug } = useParams();
+  const router = useRouter();
 
   useEffect(() => {
-    fetchIdeaBySlug(slug);
-  }, [fetchIdeaBySlug]);
+    if (!slug) return;
+    const slugStr = Array.isArray(slug) ? slug[0] : slug;
+    fetchIdeaBySlug(slugStr);
+  }, [fetchIdeaBySlug, slug]);
+
+  if (fetching) return <IdeaViewSkeleton />;
 
   return (
-    <div className="w-full">
-      <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <Link href={`/home/profile/${currentIdea?.owner?.username}`}>
-            <div className="flex items-start gap-3">
-              <Avatar className="h-10 w-10">
-                <AvatarImage src={currentIdea?.owner?.profile} />
-                <AvatarFallback>HP</AvatarFallback>
-              </Avatar>
+    <div className="min-h-screen w-full bg-[#0a0a0a]">
+      <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-3xl px-6 py-12 duration-700">
+        <button
+          onClick={() => router.back()}
+          className="group mb-10 flex items-center gap-2 text-xs font-medium text-zinc-500 transition-colors hover:text-white"
+        >
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          Back to feed
+        </button>
 
-              <div className="leading-tight">
-                <div className="flex items-center gap-2">
-                  <p className="font-medium text-sm">
-                    {currentIdea?.owner?.name}
-                  </p>
-                  <span className="text-muted-foreground text-sm">
-                    @{currentIdea?.owner?.username}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Posted 2 days ago
-                </p>
-              </div>
-            </div>
-          </Link>
-        </div>
+        <IdeaHeader
+          coverImage={currentIdea?.coverImage}
+          title={currentIdea?.title}
+          owner={currentIdea?.owner}
+          createdAt={currentIdea?.createdAt}
+        />
 
-        <div className="space-y-6 border-t border-border pt-4">
-          <div>
-            <p className="text-sm font-medium mb-2">Tech Stack</p>
-            <div className="flex flex-wrap gap-2">
-              {currentIdea?.technologies?.map((tech, index) => (
-                <Badge key={index} variant="secondary">
-                  {tech.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-medium mb-2">Team Members</p>
-            <div className="flex items-center gap-3">
-              {currentIdea?.teamMembers?.map((member, index) => (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Avatar key={index} className="h-8 w-8">
-                      <AvatarImage src={member.userId?.profile} />
-                      <AvatarFallback>
-                        {member?.userId.name?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{member.userId.username}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div>
-          </div>
-          <Markdown content={currentIdea?.description} />
-        </div>
+        <IdeaMeta
+          technologies={currentIdea?.technologies}
+          requirements={currentIdea?.requirements}
+        />
+
+        <IdeaContent description={currentIdea?.description} />
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
+import { ParamValue } from "next/dist/server/request/params";
+
+import { IIdea } from "@/types/index";
+import { ISocialLinks } from "@/types/index";
+
 import { IUser } from "./next-auth";
 
 type AuthStore = {
   updating: false;
-  onBoard: (username: string, skills: any) => Promise<void>;
   logout: () => Promise<void>;
 };
-
-import { IIdea } from "@/types/index";
-import { ParamValue } from "next/dist/server/request/params";
 
 type IdeaStore = {
   ideas: IIdea[];
@@ -23,24 +24,23 @@ type IdeaStore = {
   updateIdea: (
     slug: string,
     data: any,
-    onSuccess?: () => void
+    onSuccess?: () => void,
   ) => Promise<void>;
   deleteIdea: (slug: string, onSuccess?: () => void) => Promise<void>;
   clearIdeas: () => void;
 };
 
-interface SocialLinks {
-  github?: string;
-  linkedin?: string;
-  twitter?: string;
-}
-
 type UserStore = {
   user: IUser | null;
   userIdeas: IIdea[];
+  fetchUser: () => Promise<void>;
+  updateUserProfile: (data: ISocialLinks) => Promise<any>;
+
+  searchedUser: IUser | null;
+  searchedUserIdeas: IIdea[];
+  fetchSearchedUser: (username : string) => Promise<void>;
+
   fetching: boolean;
-  fetchProfile: (username: string) => Promise<void>;
-  updateProfile: (data: SocialLinks) => Promise<any>;
 };
 
-export type { AuthStore, IdeaStore, UserStore, SocialLinks };
+export type { AuthStore, IdeaStore, UserStore };

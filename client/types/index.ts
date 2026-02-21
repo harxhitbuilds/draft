@@ -1,26 +1,27 @@
+import { IUser } from "./next-auth";
+
 interface ITechnology {
   name: string;
 }
 
-interface IOwner {
-  _id: string;
-  name: string;
-  username: string;
-  profile?: string;
-}
-
 interface IIdea {
-  _id: string;
   title: string;
   description: string;
-  owner: IOwner;
+  coverImage: string;
+  owner: IUser;
   technologies: ITechnology[];
-  requirements: string[];
   status: "draft" | "open" | "in-progress" | "completed" | "archived";
-  lookingForCollaboratos : boolean;
   slug?: string;
+  lookingForCollaboratos: boolean;
+  requirements: string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export type { IIdea, ITechnology };
+interface ISocialLinks {
+  github?: string;
+  linkedin?: string;
+  twitter?: string;
+}
+
+export type { IIdea, ITechnology, IUser,ISocialLinks };

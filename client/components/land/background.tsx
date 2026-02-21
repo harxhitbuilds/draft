@@ -1,16 +1,15 @@
 export default function Background() {
   return (
     <div
-      className="hidden md:flex absolute inset-0 z-0 pointer-events-none "
+      className="absolute inset-0 -z-10"
       style={{
-        background: `
-      radial-gradient(
-        circle at center,
-        var(--hero-glow-strong) 0%,
-        var(--hero-glow-medium) 25%,
-        var(--hero-glow-fade) 60%
-      )
-    `,
+        backgroundColor: "#0a0a0a",
+        backgroundImage: `
+       radial-gradient(circle at 25% 25%, #222222 0.5px, transparent 1px),
+       radial-gradient(circle at 75% 75%, #111111 0.5px, transparent 1px)
+     `,
+        backgroundSize: "10px 10px",
+        imageRendering: "pixelated",
       }}
     />
   );

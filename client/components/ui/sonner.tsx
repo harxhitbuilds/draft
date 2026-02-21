@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  CheckCircle,
+  AlertTriangle,
+  CheckCircle2,
   Info,
   Loader2,
   XCircle,
-  AlertTriangle,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
@@ -20,28 +20,27 @@ const Toaster = ({ ...props }: ToasterProps) => {
       duration={3500}
       className="toaster group"
       icons={{
-        success: <CheckCircle className="h-4 w-4 text-emerald-500" />,
+        success: <CheckCircle2 className="h-4 w-4 text-white" />,
         info: <Info className="h-4 w-4 text-blue-500" />,
         warning: <AlertTriangle className="h-4 w-4 text-yellow-500" />,
         error: <XCircle className="h-4 w-4 text-red-500" />,
-        loading: (
-          <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-        ),
+        loading: <Loader2 className="h-4 w-4 animate-spin text-zinc-500" />,
       }}
       toastOptions={{
         classNames: {
           toast:
-            "group toast rounded-lg border border-border bg-popover text-popover-foreground shadow-sm",
-          title: "text-sm font-medium",
-          description: "text-xs text-muted-foreground",
+            "group toast rounded-md border border-white/10 bg-[#0a0a0a] text-white shadow-2xl shadow-black/50 p-4",
+          title: "text-[13px] font-bold tracking-tight italic",
+          description: "text-[11px] font-mono text-zinc-500 tracking-tight",
           actionButton:
-            "bg-primary text-primary-foreground hover:bg-primary/90",
-          cancelButton: "bg-muted text-muted-foreground hover:bg-muted/80",
+            "bg-white text-black hover:bg-zinc-200 font-bold rounded-sm text-[10px] px-3",
+          cancelButton:
+            "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 rounded-sm text-[10px] px-3",
         },
       }}
       style={
         {
-          "--border-radius": "8px",
+          "--border-radius": "4px",
         } as React.CSSProperties
       }
       {...props}

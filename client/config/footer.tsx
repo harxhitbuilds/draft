@@ -1,33 +1,25 @@
-export const footerLinks = [
-  {
-    title: "Product",
-    links: [
-      { label: "Explore Ideas", href: "#" },
-      { label: "Post an Idea", href: "#" },
-      { label: "Profiles", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "How It Works", href: "#" },
-      { label: "Guidelines", href: "#" },
-      { label: "Changelog", href: "#" },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { label: "X (Twitter)", href: "#" },
-      { label: "GitHub", href: "#" },
-      { label: "Feedback", href: "#" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-    ],
-  },
-];
+import { FaEnvelope, FaGithub, FaTwitter } from "react-icons/fa";
+
+export const footerConfig = {
+  name: "Alloy",
+  status: "All System Operational",
+  description:
+    "Alloy is a platform for discovering, sharing, and collaborating on innovative software ideas.",
+  socialLinks: [
+    {
+      icon: FaTwitter,
+      href: "http://x.com/harxhitbuilds",
+      label: "Twitter",
+    },
+    {
+      icon: FaGithub,
+      href: "https://github.com/harxhitbuilds",
+      label: "Github",
+    },
+    {
+      icon: FaEnvelope,
+      href: "mailto:harshitxworks@gmail.com",
+      label: "Email",
+    },
+  ],
+};

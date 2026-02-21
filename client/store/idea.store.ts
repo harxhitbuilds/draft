@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import API from "@/lib/api";
-import { toast } from "sonner";
 import axios from "axios";
-
 import { ParamValue } from "next/dist/server/request/params";
+import { toast } from "sonner";
+import { create } from "zustand";
+
+import API from "@/lib/api";
 import type { IdeaStore } from "@/types/stores";
 
 export const useIdeaStore = create<IdeaStore>((set, get) => ({
@@ -59,7 +59,7 @@ export const useIdeaStore = create<IdeaStore>((set, get) => ({
   },
 
   fetchIdeaBySlug: async (slug: ParamValue) => {
-    set({ loading: true, currentIdea: null });
+    set({ fetching: true, currentIdea: null });
     try {
       const res = await API.get(`/idea/${slug}`);
       set({ currentIdea: res.data.data.idea });
@@ -70,7 +70,7 @@ export const useIdeaStore = create<IdeaStore>((set, get) => ({
           : "Failed to fetch idea details.";
       toast.error(errorMessage);
     } finally {
-      set({ loading: false });
+      set({ fetching: false });
     }
   },
 
@@ -100,7 +100,7 @@ export const useIdeaStore = create<IdeaStore>((set, get) => ({
       set((state) => ({
         currentIdea: updatedIdea,
         ideas: state.ideas.map((idea) =>
-          idea.slug === slug ? updatedIdea : idea
+          idea.slug === slug ? updatedIdea : idea,
         ),
       }));
       toast.success("Idea updated successfully!");

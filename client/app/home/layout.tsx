@@ -1,6 +1,6 @@
-import Topbar from "@/components/home/topbar";
-import Sidebar from "@/components/home/sidebar";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import Sidebar from "@/components/layout/sidebar";
+import Topbar from "@/components/layout/topbar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function HomeLayout({
   children,
@@ -9,12 +9,12 @@ export default function HomeLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full flex flex-col">
-        <div className="flex flex-1 ">
+      <div className="flex min-h-screen w-full flex-col">
+        <div className="flex flex-1">
           <Sidebar />
-          <SidebarInset className="flex-1 flex flex-col">
+          <SidebarInset className="flex flex-1 flex-col">
             <Topbar />
-            <main className="flex-1 p-4">{children}</main>
+            <main className="flex-1 md:p-4">{children}</main>
           </SidebarInset>
         </div>
       </div>

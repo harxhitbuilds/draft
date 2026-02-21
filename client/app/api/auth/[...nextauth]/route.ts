@@ -1,8 +1,8 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-import { type JWT } from "next-auth/jwt";
 import { jwtDecode } from "jwt-decode";
+import NextAuth from "next-auth";
+import { type JWT } from "next-auth/jwt";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 async function refreshAccessToken(token: JWT): Promise<JWT> {
   try {
@@ -14,7 +14,7 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token.refreshToken}`,
         },
-      }
+      },
     );
 
     const data = await res.json();
@@ -70,7 +70,7 @@ const handler = NextAuth({
               profile: user.image,
               provider: account.provider,
             }),
-          }
+          },
         );
 
         if (!res.ok) {
@@ -82,7 +82,6 @@ const handler = NextAuth({
 
         user.accessToken = backendRes.data.accessToken;
         user.refreshToken = backendRes.data.refreshToken;
-        user.onBoarded = backendRes.data.onBoarded;
         user.user = backendRes.data.user;
 
         return true;
@@ -94,9 +93,6 @@ const handler = NextAuth({
 
     async jwt({ token, user, trigger, session }) {
       if (trigger === "update") {
-        if (session?.onBoarded) {
-          token.onBoarded = session.onBoarded;
-        }
         if (session?.user) {
           token.user = session.user;
         }
@@ -106,7 +102,6 @@ const handler = NextAuth({
         const decodedToken: { exp: number } = jwtDecode(user.accessToken!);
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
-        token.onBoarded = user.onBoarded;
         token.accessTokenExpires = decodedToken.exp * 1000;
         token.user = user.user;
         return token;
@@ -124,7 +119,6 @@ const handler = NextAuth({
         session.user = token.user;
         session.accessToken = token.accessToken;
         session.refreshToken = token.refreshToken;
-        session.onBoarded = token.onBoarded;
         session.error = token.error;
       }
       return session;

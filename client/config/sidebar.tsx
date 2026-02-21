@@ -22,7 +22,7 @@ export const getSidebarConfig = (session: Session | null) => {
           {
             label: "Profile",
             icon: <User size={18} />,
-            link: `/home/profile/${username}`,
+            link: "/home/you",
           },
         ],
       },
@@ -32,7 +32,7 @@ export const getSidebarConfig = (session: Session | null) => {
           {
             label: "Submit",
             icon: <SendIcon size={18} />,
-            link: "/#",
+            link: "https://docs.google.com/forms/d/e/1FAIpQLSd-Sx-LnJDjl7Es1W2AvlBHW24P90BswMMqfUvE9RPmC2hPHg/viewform?usp=publish-editor",
           },
         ],
       },

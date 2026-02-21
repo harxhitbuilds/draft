@@ -1,26 +1,32 @@
 import Link from "next/link";
-import { footerLinks } from "@/config/footer";
+
+import { Badge } from "@/components/ui/badge";
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+import { footerConfig } from "@/config/footer";
+
+import Logo from "../assets/logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border py-16">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
-        {footerLinks.map((section) => (
-          <div key={section.title} className="space-y-3">
-            <p className="font-medium">{section.title}</p>
-            <ul className="space-y-2 text-muted-foreground">
-              {section.links.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
+    <footer className="w-full border-t py-10 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-6">
+        <Logo />
+        <div className="via-border my-4 h-px w-full bg-linear-to-r from-transparent to-transparent" />
+        <div className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
+          <Badge className="text-foreground border-border flex items-center border bg-transparent">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-green-600" />
+            {footerConfig.status}
+          </Badge>
+          <div className="flex items-center gap-4">
+            {footerConfig.socialLinks.map((link, index) => (
+              <Link key={index} href={link.href} target="_blank">
+                <link.icon />
+              </Link>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="mt-12 text-center text-xs text-muted-foreground">
-        Built for developers who want to collaborate, not compete.
+        <TextHoverEffect text="Draft" />
       </div>
     </footer>
   );

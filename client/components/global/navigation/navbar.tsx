@@ -1,40 +1,28 @@
-import { navConfig } from "@/config/navbar";
-import Image from "next/image";
+"use client";
+
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
-import ModeToggle from "@/components/theme/mode-toggle";
-import { MenuIcon } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Spinner } from "@/components/ui/spinner";
+import { navConfig } from "@/config/navbar";
+
+import Logo from "../assets/logo";
 
 export default function Navbar() {
+  const { data: session, status } = useSession();
   return (
-    <div className="bg-white dark:bg-black sticky top-0 z-20">
-      <nav className=" max-w-[1600px] mx-auto h-18 flex items-center justify-between px-6 md:px-16 sticky top-0 ">
+    <div className="border-border sticky top-0 z-20 border-b shadow-lg backdrop-blur-2xl">
+      <nav className="sticky top-0 mx-auto flex h-18 max-w-400 items-center justify-between px-6 md:px-16">
         <div className="flex items-center justify-center gap-16">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <Image
-              src={navConfig.logo.src}
-              alt={navConfig.logo.src}
-              height={20}
-              width={20}
-              className="dark:invert"
-            />
-            <h1 className="pb-1 font-semibold text-lg">{navConfig.product}</h1>
-          </div>
+          <Logo />
 
-          <div className="text-xs  items-center gap-12 hidden md:flex">
+          <div className="hidden items-center gap-12 text-xs md:flex">
             {navConfig.links.map((item, index) => (
               <Link
                 key={index}
                 href={item.link}
-                className="flex items-center gap-2  text-shadow-md"
+                className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-shadow-md"
               >
                 {item.title}
                 {item?.icon}
@@ -43,42 +31,24 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className=" items-center gap-4 hidden md:flex">
-          {navConfig.buttons.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <Button className="rounded-xs shadow-inner hover:shadow-zinc-700 cursor-pointer">
-                {item.title}
+        <div className="flex min-h-8 min-w-24 items-center justify-center gap-4 rounded-xs bg-white text-black shadow-inner shadow-zinc-700">
+          {status === "loading" ? (
+            <Spinner />
+          ) : status === "unauthenticated" ? (
+            <Link href="/auth">
+              <Button className="cursor-pointer bg-transparent hover:bg-transparent">
+                Get Started
               </Button>
             </Link>
-          ))}
+          ) : (
+            <Link href="/home">
+              <Button className="cursor-pointer bg-transparent hover:bg-transparent">
+                Home
+              </Button>
+            </Link>
+          )}
         </div>
-        <MobileNav />
       </nav>
     </div>
   );
 }
-
-const MobileNav = () => {
-  return (
-    <div className="flex items-center gap-4 md:hidden">
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <MenuIcon className="bg-transparent border-border hover:bg-transparent text-black dark:text-white" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-64 mr-4">
-          {navConfig.links.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <DropdownMenuItem>{item.title}</DropdownMenuItem>
-            </Link>
-          ))}
-          <DropdownMenuSeparator />
-          {navConfig.buttons.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <DropdownMenuItem>{item.title}</DropdownMenuItem>
-            </Link>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  );
-};

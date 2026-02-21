@@ -1,10 +1,9 @@
-import { create } from "zustand";
 import axios from "axios";
-import { toast } from "sonner";
 import { signOut } from "next-auth/react";
+import { toast } from "sonner";
+import { create } from "zustand";
 
 import API from "@/lib/api";
-
 import type { AuthStore } from "@/types/stores";
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -18,7 +17,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       console.log(error);
       const errorMessage =
         axios.isAxiosError(error) && error.response
-          ? error.response.data.message // Correct path to the error message
+          ? error.response.data.message
           : "Onboarding failed. Please try again.";
       toast.error(errorMessage);
       throw error;

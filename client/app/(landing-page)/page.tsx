@@ -1,18 +1,18 @@
 "use client";
-import Hero from "@/components/land/hero";
-import HowItWorks from "@/components/land/how-it-works";
-import FeaturesSection from "@/components/land/features";
+import Background from "@/components/land/background";
 import ExampleIdea from "@/components/land/example-card";
-import CTASection from "@/components/land/cta";
+import FeaturesSection from "@/components/land/features";
+import Hero from "@/components/land/hero";
+import WhatIs from "@/components/land/what_is";
 
 export default function LandPage() {
   return (
-    <div className="z-10 relative">
+    <div className="bg-background relative z-10 flex min-h-screen flex-col">
+      <Background />
       <Hero />
-      <HowItWorks />
+      <WhatIs />
       <FeaturesSection />
       <ExampleIdea />
-      <CTASection />
     </div>
   );
 }
